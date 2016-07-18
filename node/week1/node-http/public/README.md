@@ -1,0 +1,1 @@
+The files of the public folder which sit at the back end is intend for the request form the client side.
