@@ -1,20 +1,19 @@
 'use strict';
 
 module.exports = function (grunt) {
-	require('time-grunt')(grunt); // Time how long tasks take. > Optimize build times
-	require('jit-grunt')(grunt); // Automatically load required Grunt tasks.
-	require('jit-grunt')(grunt, {
-	  useminPrepare: 'grunt-usemin'
+	//require('time-grunt')(grunt); // Time how long tasks take. > Optimize build times
+	
+	require('jit-grunt')(grunt, { // Automatically load plugins from the task names
+	  useminPrepare: 'grunt-usemin' // a plugin that can not be resolved in the automatic mapping
 	});
-	// Define the configuration for tasks
-	grunt.initConfig({
-		pkg: grunt.file.readJSON('package.json'), // Configuration for the jshint task, and refer to the value of property in the package.json file.
+	grunt.initConfig({ // an object passed into the method to configure tasks & the project
+		pkg: grunt.file.readJSON('package.json'), // refer to package.json
 
 		// Configurations for the JSHint task.
-	  	jshint: {
+	  	jshint: { // a plugin for grunt JS check grunt-contrib-jshint
 		    options: {
-		      jshintrc: '.jshintrc', // Specify values that JSHint checker uses.
-		      reporter: require('jshint-stylish')
+		      jshintrc: '.jshintrc', // specify the check's attibute of the JSHint
+		      reporter: require('jshint-stylish') // Stylish reporter for the plugin
 			},
 	    	all: {
 	      		src: [
@@ -172,18 +171,18 @@ module.exports = function (grunt) {
 
 	});
 
-	grunt.registerTask('build', [
-	  'clean',
+	grunt.registerTask('build', [ // Alias Task for one or more tasks contained in the list
+	  //'clean',
 	  'jshint',
-	  'useminPrepare',
-	  'concat',
-	  'cssmin',
-	  'uglify',
-	  'copy',
-	  'filerev',
-	  'usemin'
+	  //'useminPrepare',
+	  //'concat',
+	  //'cssmin',
+	  //'uglify',
+	  //'copy',
+	  //'filerev',
+	  //'usemin'
 	]); // Register a task as 'build'
 
-	grunt.registerTask('serve',['build','connect:dist','watch']);
-	grunt.registerTask('default',['build']); // register a default task for 'build' alias.
-};
+	grunt.registerTask('serve',['build','connect:dist','watch']); // nested tasks
+	grunt.registerTask('default',['build']); // 'grunt' for default; 'grunt taskname' for the specified task atr the command prompt
+ };

@@ -1,0 +1,97 @@
+
+
+    <div class="container">
+        <div class="row row-content"  ng-controller="DishDetailController">
+          <!--Reference to  controller instance of app.controller('dishDetailController', function() {}) with JS code. -->
+            <div class="col-xs-12">
+              <div class="media">
+                <div class="media-left">
+                  <a href="">
+                    <img class="media-object img-thumbnail" ng-src={{dish.image}} alt="" />
+                  </a>
+                </div>
+                <div class="media-body">
+                  <h2 class="media-heading">
+                    {{dish.name}}
+                    <span class="label label-danger">{{dish.label}}</span>
+                    <span class="badge">{{dish.price | currency}}</span>
+                  </h2>
+
+                  <p>{{dish.description}}</p>
+                </div>
+              </div>
+            </div>
+            <!--end of the col-xs-12-->
+
+            <div class="col-xs-9 col-xs-offset-1" >
+              <h3>Costomer Comments</h3>
+              <div class="form-inline">
+                <label>Sort by:  </label><input type="text" class="form-control" ng-model="dishComment.query" />
+              </div>
+
+              <!-- Use the 'ng-repeat' directive to iterate an object contained  by arrays. -->
+              <blockquote ng-repeat="dishDesc in dish.comments | orderBy: dishComment.query">
+                <p>{{dishDesc.rating}}</p>
+                <p>{{dishDesc.comment}}</p>
+                <!-- Use the 'date' filter for formatting the date object or a Unix timestamp string to a fromat what you want.-->
+                <footer>{{dishDesc.author}}, {{dishDesc.date | date: 'mediumDate'}}</footer>
+              </blockquote>
+
+              <div ng-controller="DishCommentController">
+              <blockquote ng-show="!commentForm.comment.$error.required">
+                <p>{{comments.rating}}</p>
+                <p>{{comments.comment}}</p>
+                <!-- Use the 'date' filter for formatting the date object or a Unix timestamp string to a fromat what you want.-->
+                <footer>{{comments.author}}, {{comments.date | date: 'mediumDate'}}</footer>
+              </blockquote>
+              <form class="form-horizontal" name="commentForm" ng-submit="submitComment()" novalidate>
+                <div class="form-group" ng-class="{'has-error': !commentForm.name.$pristine && commentForm.name.$error.required}">
+                  <label for="input-name" class="col-sm-2 control-label">Your Name</label>
+                  <div class="col-sm-10">
+                    <input type="text" class="form-control" id="input-name" name="name" ng-model="comments.author" placeholder="your name" required>
+                    <span ng-show="!commentForm.name.$pristine && commentForm.name.$error.required" class="help-block">The comment is required.</span>
+                  </div>
+                </div>
+                <div class="form-group form-inline">
+                  <label for="" class="col-sm-2 control-label">Number of Stars</label>
+                  <div class="col-sm-10">
+                    <label class="radio-inline">
+                      <input type="radio" name="inlineRadioOptions" id="inlineRadio1" value="1 star" ng-model="comments.rating"> 1
+                    </label>
+                    <label class="radio-inline">
+                      <input type="radio" name="inlineRadioOptions" id="inlineRadio2" value="2 stars" ng-model="comments.rating"> 2
+                    </label>
+                    <label class="radio-inline">
+                      <input type="radio" name="inlineRadioOptions" id="inlineRadio3" value="3 stars" ng-model="comments.rating"> 3
+                    </label>
+                    <label class="radio-inline">
+                      <input type="radio" name="inlineRadioOptions" id="inlineRadio4" value="4 stars" ng-model="comments.rating"> 4
+                    </label>
+                    <label class="radio-inline">
+                      <input type="radio" name="inlineRadioOptions" id="inlineRadio5" value="5 stars" ng-model="comments.rating"> 5
+                    </label>
+                  </div>
+                </div>
+                <div class="form-group" ng-class="{'has-error': !commentForm.comment.$pristine && commentForm.comment.$error.required}">
+                  <label for="textarea-comments" class="col-sm-2 control-label">Your Comments</label>
+                  <div class="col-sm-10">
+                    <textarea name="comment" id="" class="form-control" rows="5" ng-model="comments.comment" placeholder="enter your comment here ..." required></textarea>
+                    <span ng-show="!commentForm.comment.$pristine && commentForm.comment.$error.required" class="help-block">The comment is required.</span>
+
+                  </div>
+                </div>
+                <div class="form-group">
+                  <div class="col-sm-offset-2 col-sm-10">
+                    <button type="submit" class="btn btn-primary" ng-class="{'disabled': commentForm.name.$error.required || commentForm.comment.$error.required}">Submit</button>
+                  </div>
+                </div>
+              </form>
+              </div>
+            </div>
+            <!--end of the col-xs-9-->
+        </div>
+
+
+    </div>
+
+
