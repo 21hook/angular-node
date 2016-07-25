@@ -53,7 +53,7 @@ module.exports = function (grunt) {
 		},
 
 		// Configurations for the clean task
-		clean: {
+		clean: { // remove directories & files
 		  build: {
 		    src: [ 'dist/']
 		  }
@@ -76,17 +76,18 @@ module.exports = function (grunt) {
 		  dist: {}
 		},
 
-		// Uglify
-		uglify: {
+		// minifies JS files
+		uglify: { 
 		  // dist configuration is provided by useminPrepare
 		  dist: {}
 		},
 
+		// minifies CSS files
 		cssmin: {
 		  dist: {}
 		},
 
-		// Filerev
+		// revisions static assets 
 		filerev: {
 		  options: {
 		    encoding: 'utf8',
@@ -106,10 +107,9 @@ module.exports = function (grunt) {
 		  }
 		},
 
-		// Usemin
-		// Replaces all assets with their revved version in html and css files.
-		// options.assetDirs contains the directories for finding the assets
-		// according to their relative paths
+		// Replaces references to scripts or stylesheets into HTMLs
+		// - task1: useminPrepare: prepares the configuration to transform specific blocks in the file 
+		// - task2: usemin: replace the blocks by the file they reference
 		usemin: {
 		  html: ['dist/*.html'],
 		  css: ['dist/styles/*.css'],

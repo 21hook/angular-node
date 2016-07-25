@@ -26,7 +26,7 @@ angular.module('confusionApp', ['ui.router'])
             .state('app.aboutus', {
                 url:'aboutus',
                 views: {
-                    'content@': {
+                    'content@': { // Nested in the content view - replace the last view visually
                         templateUrl : 'views/aboutus.html',
                         controller  : 'AboutController'                  
                     }
